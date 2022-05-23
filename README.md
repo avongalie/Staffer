@@ -1,2 +1,2 @@
 # Staffer
-An employee management system
+An employee management system.
