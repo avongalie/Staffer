@@ -11,6 +11,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import CreateEmployee from './components/employees/createEmployee'
+import Employee from './components/employees/employee'
 
 class App extends Component {
   constructor (props) {
@@ -92,6 +93,14 @@ class App extends Component {
             path='/add-employee'
             render={() => (
               <CreateEmployee msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/employees/:id'
+            render={() => (
+              <Employee msgAlert={this.msgAlert} user={user} />
             )}
           />
         </main>
