@@ -13,6 +13,9 @@ class SignUp extends Component {
 
     this.state = {
       email: '',
+      firstName: '',
+      lastName: '',
+      company: '',
       password: '',
       passwordConfirmation: ''
     }
@@ -50,7 +53,7 @@ onSignUp = (event) => {
 }
 
 render () {
-  const { email, password, passwordConfirmation } = this.state
+  const { email, firstName, lastName, company, password, passwordConfirmation } = this.state
 
   return (
     <div className='row'>
@@ -65,6 +68,39 @@ render () {
               name='email'
               value={email}
               placeholder='Enter email'
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId='firstName'>
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              required
+              name='firstName'
+              value={firstName}
+              type='firstName'
+              placeholder='First Name'
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId='lastName'>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              required
+              name='lastName'
+              value={lastName}
+              type='lastName'
+              placeholder='Last Name'
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId='company'>
+            <Form.Label>Company</Form.Label>
+            <Form.Control
+              required
+              name='company'
+              value={company}
+              type='company'
+              placeholder='Company'
               onChange={this.handleChange}
             />
           </Form.Group>
