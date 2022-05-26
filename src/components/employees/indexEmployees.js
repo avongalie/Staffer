@@ -33,35 +33,77 @@ class IndexEmployees extends Component {
       })
   }
 
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  componentDidUpdate = () => {
+    const { employees, search } = this.state
+    if (employees != null) {
+      const searchResults = employees.filter((employee) => {
+        return employee.firstName.toLowerCase().includes(search.toLowerCase()) || employee.lastName.toLowerCase().includes(search.toLowerCase())
+      })
+      // console.log(searchResults)
+      // let searchJSX = []
+      // for (let i = 1; i < searchResults.length; i++){
+      //   searchJSX.push(
+      //     <>
+      //     <Card id={employee._id} key={employee._id} style={{ width: '18rem' }}>
+      //       <Card.Body>
+      //         <Card.Title>{employee.firstName} {employee.lastName}</Card.Title>
+      //         <Card.Subtitle className="mb-2 text-muted">{employee.position}</Card.Subtitle>
+      //         <Card.Text>
+      //           Department: {employee.department}
+      //           <br></br>
+      //           Employed Date: {employee.employDate.split('T', 1)}
+      //         </Card.Text>
+      //         <Card.Link><Link to={'/employees/' + employee._id}>More Information</Link></Card.Link>
+      //       </Card.Body>
+      //     </Card>
+      //     <br></br>
+      //     </>
+      //   )
+      // }
+      const searchJSX = searchResults.map(employee => {
+        return (
+          <>
+            <Card id={employee._id} key={employee._id} style={{ width: '18rem' }}>
+              <Card.Body>
+                <Card.Title>{employee.firstName} {employee.lastName}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{employee.position}</Card.Subtitle>
+                <Card.Text>
+                  Department: {employee.department}
+                  <br></br>
+                  Employed Date: {employee.employDate.split('T', 1)}
+                </Card.Text>
+                <Card.Link><Link to={'/employees/' + employee._id}>More Information</Link></Card.Link>
+              </Card.Body>
+            </Card>
+            <br></br>
+          </>
+        )
+      })
+      return searchJSX
+    }
+  }
+
   render () {
     const { employees } = this.state
     if (employees === null) {
       return 'Loading...'
     } else {
+      const JSX = this.componentDidUpdate()
       return (
+        <>
+          <input name='search' onChange={this.handleChange}></input>
           <div className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-              {employees.map(employee => {
-                return (
-                  <>
-                    <Card id={employee._id} key={employee._id} style={{ width: '18rem' }}>
-                      <Card.Body>
-                        <Card.Title>{employee.firstName} {employee.lastName}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">{employee.position}</Card.Subtitle>
-                        <Card.Text>
-                          Department: {employee.department}
-                          <br></br>
-                          Employed Date: {employee.employDate.split('T', 1)}
-                        </Card.Text>
-                        <Card.Link><Link to={'/employees/' + employee._id}>More Information</Link></Card.Link>
-                      </Card.Body>
-                    </Card>
-                    <br></br>
-                  </>
-                )
-              })}
+              {JSX}
             </div>
           </div>
+        </>
       )
     }
   }
