@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { showEmployee, deleteEmployee } from '../../api/employee'
+import { Card } from 'react-bootstrap'
 
 class Employee extends Component {
   constructor (props) {
@@ -15,10 +16,6 @@ class Employee extends Component {
     const { user } = this.props
     showEmployee(user, id)
       .then((response) => this.setState({ employee: response.data.employee }))
-      .then(() => {
-        console.log(this.state.employee.owner)
-        console.log(user._id)
-      })
       .catch(console.error)
   }
 
@@ -43,12 +40,18 @@ class Employee extends Component {
 
     return (
       <>
-        <h4>{this.state.employee.firstName} {this.state.employee.lastName}</h4>
-        <p>Department: {this.state.employee.department}</p>
-        <p>Position: {this.state.employee.position}</p>
-        <p>Employment Date: {this.state.employee.employDate}</p>
-        <button onClick={this.deleteClick}>Delete Employee</button>
-        <button onClick={this.updateClick}>Update</button>
+        <Card style={{ width: '30rem' }}>
+          <Card.Body>
+            <Card.Title>{employee.firstName} {employee.lastName}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">{employee.position}</Card.Subtitle>
+            <Card.Text>
+              Department: {employee.department}
+              <br></br>
+              Employed Date: {employee.employDate.split('T', 1)}
+            </Card.Text>
+            <Card.Text href="#"><button onClick={this.updateClick}>Update</button> <button onClick={this.deleteClick}>Delete</button></Card.Text>
+          </Card.Body>
+        </Card>
       </>
     )
   }

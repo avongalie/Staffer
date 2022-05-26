@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { indexEmployees } from '../../api/employee'
+import { Card } from 'react-bootstrap'
 
 class IndexEmployees extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      employees: null
+      employees: null,
+      search: ''
     }
   }
 
@@ -33,19 +35,33 @@ class IndexEmployees extends Component {
 
   render () {
     const { employees } = this.state
-    console.log(employees)
     if (employees === null) {
       return 'Loading...'
     } else {
       return (
-        <div className='row'>
-          <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-            {employees.map(employee => {
-              // add filter to show only surveys by owner
-              return <li id={employee._id} key={employee._id}><Link to={'/employees/' + employee._id}>{employee.firstName} {employee.lastName}</Link></li>
-            })}
+          <div className='row'>
+            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+              {employees.map(employee => {
+                return (
+                  <>
+                    <Card id={employee._id} key={employee._id} style={{ width: '18rem' }}>
+                      <Card.Body>
+                        <Card.Title>{employee.firstName} {employee.lastName}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">{employee.position}</Card.Subtitle>
+                        <Card.Text>
+                          Department: {employee.department}
+                          <br></br>
+                          Employed Date: {employee.employDate.split('T', 1)}
+                        </Card.Text>
+                        <Card.Link><Link to={'/employees/' + employee._id}>More Information</Link></Card.Link>
+                      </Card.Body>
+                    </Card>
+                    <br></br>
+                  </>
+                )
+              })}
+            </div>
           </div>
-        </div>
       )
     }
   }
