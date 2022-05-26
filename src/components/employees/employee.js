@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { showEmployee, deleteEmployee } from '../../api/employee'
 import { Card } from 'react-bootstrap'
 
@@ -52,6 +52,7 @@ class Employee extends Component {
             <Card.Text href="#"><button onClick={this.updateClick}>Update</button> <button onClick={this.deleteClick}>Delete</button></Card.Text>
           </Card.Body>
         </Card>
+        <Link to='/employees'>Return to all Employees</Link>
       </>
     )
   }
