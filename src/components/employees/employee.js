@@ -40,7 +40,7 @@ class Employee extends Component {
 
     return (
       <>
-        <Card style={{ width: '30rem' }}>
+        <Card style={{ width: '30rem', marginTop: '20px' }}>
           <Card.Body>
             <Card.Title>{employee.firstName} {employee.lastName}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">{employee.position}</Card.Subtitle>
@@ -50,9 +50,9 @@ class Employee extends Component {
               Employed Date: {employee.employDate.split('T', 1)}
             </Card.Text>
             <Card.Text href="#"><button onClick={this.updateClick}>Update</button> <button onClick={this.deleteClick}>Delete</button></Card.Text>
+            <Card.Text><Link to='/employees'>Return to all Employees</Link></Card.Text>
           </Card.Body>
         </Card>
-        <Link to='/employees'>Return to all Employees</Link>
       </>
     )
   }
