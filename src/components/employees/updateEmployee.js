@@ -22,7 +22,6 @@ class UpdateEmployee extends Component {
     const { user } = this.props
     showEmployee(user, id)
       .then((res) => this.setState({ firstName: res.data.employee.firstName, lastName: res.data.employee.lastName, department: res.data.employee.department, position: res.data.employee.position, employDate: res.data.employee.employDate }))
-      .then(console.log(this.state))
       .catch(console.error)
   }
 
@@ -103,7 +102,7 @@ class UpdateEmployee extends Component {
                 <Form.Control
                   required
                   name='employDate'
-                  value={this.state.employDate}
+                  value={this.state.employDate.split('T', 1)}
                   type='date'
                   onChange={this.handleChange}
                 />
