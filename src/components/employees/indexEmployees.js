@@ -9,6 +9,7 @@ class IndexEmployees extends Component {
     super(props)
     this.state = {
       employees: null,
+      searchType: 'name',
       search: ''
     }
   }
@@ -28,11 +29,19 @@ class IndexEmployees extends Component {
   }
 
   componentDidUpdate = () => {
-    const { employees, search } = this.state
+    const { employees, search, searchType } = this.state
     if (employees != null) {
-      const searchResults = employees.filter((employee) => {
-        return employee.firstName.toLowerCase().includes(search.toLowerCase()) || employee.lastName.toLowerCase().includes(search.toLowerCase())
-      })
+      let searchResults = []
+      if (searchType === 'name') {
+        searchResults = employees.filter((employee) => {
+          return employee.firstName.toLowerCase().includes(search.toLowerCase()) || employee.lastName.toLowerCase().includes(search.toLowerCase())
+        })
+      }
+      if (searchType === 'department') {
+        searchResults = employees.filter((employee) => {
+          return employee.department.toLowerCase().includes(search.toLowerCase())
+        })
+      }
       let searchJSX = searchResults.map(employee => {
         return (
           <>
@@ -53,14 +62,20 @@ class IndexEmployees extends Component {
         )
       })
       if (searchJSX.length === 0) {
-        searchJSX = <h5>No Employees with that name</h5>
+        searchJSX = <h5>No Employees found</h5>
       }
       return searchJSX
     }
   }
 
+  handleClick = (event) => {
+    this.setState({
+      searchType: event.target.name
+    })
+  }
+
   render () {
-    const { employees } = this.state
+    const { employees, searchType } = this.state
     if (employees === null) {
       return 'Loading...'
     } else if (employees.length === 0) {
@@ -78,8 +93,9 @@ class IndexEmployees extends Component {
         <>
           <div id='searchbar'>
             <h2>All Employees</h2>
-            <p>Search Employees by name below</p>
+            <p>Search Employees by {searchType} below</p>
             <input id='search' name='search' onChange={this.handleChange}></input>
+            <p>Search By: <Button onClick={this.handleClick} name='name'>Name</Button> <Button onClick={this.handleClick} name='department'>Department</Button></p>
           </div>
           <div className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
