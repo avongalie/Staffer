@@ -14,6 +14,7 @@ import CreateEmployee from './components/employees/createEmployee'
 import Employee from './components/employees/employee'
 import IndexEmployees from './components/employees/indexEmployees'
 import UpdateEmployee from './components/employees/updateEmployee'
+import Home from './components/employees/home'
 
 class App extends Component {
   constructor (props) {
@@ -70,6 +71,13 @@ class App extends Component {
             path='/sign-in'
             render={() => (
               <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
+            )}
+          />
+          <Route
+            exact
+            path='/'
+            render={() => (
+              <Home msgAlert={this.msgAlert} setUser={this.setUser} />
             )}
           />
           <AuthenticatedRoute
