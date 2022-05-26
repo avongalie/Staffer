@@ -33,7 +33,7 @@ class IndexEmployees extends Component {
       const searchResults = employees.filter((employee) => {
         return employee.firstName.toLowerCase().includes(search.toLowerCase()) || employee.lastName.toLowerCase().includes(search.toLowerCase())
       })
-      const searchJSX = searchResults.map(employee => {
+      let searchJSX = searchResults.map(employee => {
         return (
           <>
             <Card id={employee._id} key={employee._id} style={{ width: '50vw' }}>
@@ -52,6 +52,9 @@ class IndexEmployees extends Component {
           </>
         )
       })
+      if (searchJSX.length === 0) {
+        searchJSX = <h5>No Employees with that name</h5>
+      }
       return searchJSX
     }
   }
@@ -75,7 +78,7 @@ class IndexEmployees extends Component {
         <>
           <div id='searchbar'>
             <h2>All Employees</h2>
-            <p>Search Employess by name below</p>
+            <p>Search Employees by name below</p>
             <input id='search' name='search' onChange={this.handleChange}></input>
           </div>
           <div className='row'>
