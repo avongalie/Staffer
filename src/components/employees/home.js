@@ -13,10 +13,10 @@ class Home extends Component {
     return (
       <>
         <div style={{ textAlign: 'center' }}>
-          <h1 style={{ marginTop: '20vh' }}>Welcome to Staffer</h1>
+          <h1 style={{ marginTop: '20vh' }}>Welcome to Staffer <img src='https://cdn2.iconfinder.com/data/icons/25-free-ui-icons/40/folders-512.png' style={{ width: '40px' }}/></h1>
           <h3>Your one stop shop for manging your employees</h3>
           <br></br>
-          <p>
+          <div>
             To begin, create an account and sign in
             <br></br>
             <br></br>
@@ -27,7 +27,7 @@ class Home extends Component {
               <li>Update Employee Info</li>
               <li>Remove Employees</li>
             </ul>
-          </p>
+          </div>
         </div>
       </>
     )
