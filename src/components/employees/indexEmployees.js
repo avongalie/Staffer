@@ -76,6 +76,7 @@ class IndexEmployees extends Component {
 
   render () {
     const { employees, searchType } = this.state
+    const { user } = this.props
     if (employees === null) {
       return 'Loading...'
     } else if (employees.length === 0) {
@@ -93,6 +94,7 @@ class IndexEmployees extends Component {
         <>
           <div id='searchbar'>
             <h2>All Employees</h2>
+            <h6>Your Company: {user.company} </h6>
             <p>Search Employees by {searchType} below</p>
             <input id='search' name='search' onChange={this.handleChange}></input>
             <p>Search By: <Button onClick={this.handleClick} name='name'>Name</Button> <Button onClick={this.handleClick} name='department'>Department</Button></p>
