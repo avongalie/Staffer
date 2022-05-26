@@ -26,26 +26,12 @@ class CreateEmployee extends Component {
   onCreateEmployee = (event) => {
     event.preventDefault()
 
-    const { msgAlert, user, history } = this.props
+    const { user, history } = this.props
 
     createEmployee(this.state, user)
       .then((res) => this.setState({ id: res.data.employee._id }))
-      .then(() =>
-        msgAlert({
-          heading: 'Create Employee Success',
-          message: 'success',
-          variant: 'success'
-        })
-      )
       .then(() => history.push('/employees/' + this.state.id))
-      .catch((error) => {
-        // this.setState({ email: '', password: '', passwordConfirmation: '' })
-        msgAlert({
-          heading: 'Error',
-          message: 'Error:' + error.message,
-          variant: 'danger'
-        })
-      })
+      .catch(console.error)
   }
 
   render () {
