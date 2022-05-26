@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { showEmployee, deleteEmployee } from '../../api/employee'
-import { Card } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 
 class Employee extends Component {
   constructor (props) {
@@ -49,7 +49,7 @@ class Employee extends Component {
               <br></br>
               Employed Date: {employee.employDate.split('T', 1)}
             </Card.Text>
-            <Card.Text href="#"><button onClick={this.updateClick}>Update</button> <button onClick={this.deleteClick}>Delete</button></Card.Text>
+            <Card.Text href="#"><Button onClick={this.updateClick}>Update</Button> <Button onClick={this.deleteClick}>Delete</Button></Card.Text>
             <Card.Text><Link to='/employees'>Return to all Employees</Link></Card.Text>
           </Card.Body>
         </Card>

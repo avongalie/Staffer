@@ -26,7 +26,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar variant='dark' expand='md' style={{ backgroundColor: '#000' }}>
+  <Navbar bg='primary' variant='dark' expand='md'>
     <Navbar.Brand>
       <Link to='/' style={{ color: '#FFF', textDecoration: 'none', marginLeft: '10px' }}>Staffer</Link>
     </Navbar.Brand>
