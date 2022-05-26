@@ -13,6 +13,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import CreateEmployee from './components/employees/createEmployee'
 import Employee from './components/employees/employee'
 import IndexEmployees from './components/employees/indexEmployees'
+import UpdateEmployee from './components/employees/updateEmployee'
 
 class App extends Component {
   constructor (props) {
@@ -110,6 +111,14 @@ class App extends Component {
             path='/employees'
             render={() => (
               <IndexEmployees msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/employees/:id/update'
+            render={() => (
+              <UpdateEmployee msgAlert={this.msgAlert} user={user} />
             )}
           />
         </main>
