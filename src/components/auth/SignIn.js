@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { signIn } from '../../api/auth'
-import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
+import { signInSuccess } from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -13,7 +13,8 @@ class SignIn extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      displayText: ''
     }
   }
 
@@ -37,23 +38,19 @@ onSignIn = (event) => {
       })
     )
     .then(() => history.push('/'))
-    .catch((error) => {
-      this.setState({ email: '', password: '' })
-      msgAlert({
-        heading: 'Sign In Failed with error: ' + error.message,
-        message: signInFailure,
-        variant: 'danger'
-      })
+    .catch(() => {
+      this.setState({ email: '', password: '', displayText: 'Email or Password do not match' })
     })
 }
 
 render () {
-  const { email, password } = this.state
+  const { email, password, displayText } = this.state
 
   return (
     <div className='row'>
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-        <h3>Sign In</h3>
+        <h3 style={{ textAlign: 'center' }}>Sign In</h3>
+        <p style={{ textAlign: 'center' }}>{displayText}</p>
         <Form onSubmit={this.onSignIn}>
           <Form.Group controlId='email'>
             <Form.Label>Email address</Form.Label>

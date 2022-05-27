@@ -13,7 +13,8 @@ class ChangePassword extends Component {
 
     this.state = {
       oldPassword: '',
-      newPassword: ''
+      newPassword: '',
+      displayText: ''
     }
   }
 
@@ -27,32 +28,37 @@ onChangePassword = (event) => {
 
   const { msgAlert, history, user } = this.props
 
-  changePassword(this.state, user)
-    .then(() =>
-      msgAlert({
-        heading: 'Change Password Success',
-        message: changePasswordSuccess,
-        variant: 'success'
+  if (this.state.oldPassword === this.state.newPassword) {
+    this.setState({ displayText: 'Passwords cannot match' })
+  } else {
+    changePassword(this.state, user)
+      .then(() =>
+        msgAlert({
+          heading: 'Change Password Success',
+          message: changePasswordSuccess,
+          variant: 'success'
+        })
+      )
+      .then(() => history.push('/'))
+      .catch((error) => {
+        this.setState({ oldPassword: '', newPassword: '', displayText: 'Your Old password is incorrect' })
+        msgAlert({
+          heading: 'Change Password Failed with error: ' + error.message,
+          message: changePasswordFailure,
+          variant: 'danger'
+        })
       })
-    )
-    .then(() => history.push('/'))
-    .catch((error) => {
-      this.setState({ oldPassword: '', newPassword: '' })
-      msgAlert({
-        heading: 'Change Password Failed with error: ' + error.message,
-        message: changePasswordFailure,
-        variant: 'danger'
-      })
-    })
+  }
 }
 
 render () {
-  const { oldPassword, newPassword } = this.state
+  const { oldPassword, newPassword, displayText } = this.state
 
   return (
     <div className='row'>
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
         <h3>Change Password</h3>
+        <p style={{ textAlign: 'center' }}>{displayText}</p>
         <Form onSubmit={this.onChangePassword}>
           <Form.Group controlId='oldPassword'>
             <Form.Label>Old password</Form.Label>

@@ -17,7 +17,8 @@ class SignUp extends Component {
       lastName: '',
       company: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      displayText: ''
     }
   }
 
@@ -30,35 +31,39 @@ onSignUp = (event) => {
   event.preventDefault()
 
   const { msgAlert, history, setUser } = this.props
-
-  signUp(this.state)
-    .then(() => signIn(this.state))
-    .then((res) => setUser(res.data.user))
-    .then(() =>
-      msgAlert({
-        heading: 'Sign Up Success',
-        message: signUpSuccess,
-        variant: 'success'
+  if (this.state.password !== this.state.passwordConfirmation) {
+    this.setState({ displayText: 'Passwords do not match' })
+  } else {
+    signUp(this.state)
+      .then(() => signIn(this.state))
+      .then((res) => setUser(res.data.user))
+      .then(() =>
+        msgAlert({
+          heading: 'Sign Up Success',
+          message: signUpSuccess,
+          variant: 'success'
+        })
+      )
+      .then(() => history.push('/'))
+      .catch((error) => {
+        this.setState({ displayText: 'An account with this email already exists' })
+        msgAlert({
+          heading: 'Sign Up Failed with error: ' + error.message,
+          message: signUpFailure,
+          variant: 'danger'
+        })
       })
-    )
-    .then(() => history.push('/'))
-    .catch((error) => {
-      // this.setState({ email: '', password: '', passwordConfirmation: '' })
-      msgAlert({
-        heading: 'Sign Up Failed with error: ' + error.message,
-        message: signUpFailure,
-        variant: 'danger'
-      })
-    })
+  }
 }
 
 render () {
-  const { email, firstName, lastName, company, password, passwordConfirmation } = this.state
+  const { email, firstName, lastName, company, password, passwordConfirmation, displayText } = this.state
 
   return (
     <div className='row'>
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
         <h3 style={{ textAlign: 'center' }}>Create an account below</h3>
+        <p style={{ textAlign: 'center' }}>{displayText}</p>
         <Form onSubmit={this.onSignUp}>
           <Form.Group controlId='email'>
             <Form.Label>Email address</Form.Label>
