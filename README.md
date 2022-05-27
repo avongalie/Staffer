@@ -43,3 +43,5 @@ Employers should be able to:
 
 ## Technologies Used
 * React.js
+* HTML/CSS
+* Bootstrap
