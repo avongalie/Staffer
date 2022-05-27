@@ -9,7 +9,7 @@ class UpdateEmployee extends Component {
     super(props)
 
     this.state = {
-      firstName: '',
+      firstName: null,
       lastName: '',
       department: '',
       position: '',
@@ -43,7 +43,8 @@ class UpdateEmployee extends Component {
   }
 
   render () {
-    if (this.state.firstName === '') {
+    console.log(this.state.firstName)
+    if (this.state.firstName === null) {
       return 'Loading...'
     }
 
