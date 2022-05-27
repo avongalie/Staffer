@@ -7,6 +7,17 @@ Check out Staffer [here!](https://avongalie.github.io/Staffer/)
 
 Visit my back-end repo [here.](https://github.com/avongalie/Staffer-API)
 
+## User Stories
+Employers should be able to:
+* create an account
+* sign in
+* change their password
+* sign out
+* add employees
+* update employee information
+* remove employees
+* search employees by name or department
+
 ## WireFrames
 
 ##### Homepage
