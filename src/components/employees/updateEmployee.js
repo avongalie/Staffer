@@ -43,7 +43,6 @@ class UpdateEmployee extends Component {
   }
 
   render () {
-    console.log(this.state.firstName)
     if (this.state.firstName === null) {
       return 'Loading...'
     }
